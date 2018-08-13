@@ -55,7 +55,7 @@ void Stage1GameplayLayer::onEnter(){
 	this->addChild(tutorial_motion);
 
 	this->tutorial_jk = Sprite::create("tutorial/tutorial_jk.png");
-	this->tutorial_jk->setPosition(700, -200);
+	this->tutorial_jk->setPosition(700, -100);
 	this->addChild(tutorial_jk);
 
 	this->tutorial_trans_btf = Sprite::create("tutorial/tutorial_trans_btf.png");
@@ -64,7 +64,7 @@ void Stage1GameplayLayer::onEnter(){
 	this->addChild(tutorial_trans_btf);
 
 	this->tutorial_trans_ftb = Sprite::create("tutorial/tutorial_trans_ftb.png");
-	this->tutorial_trans_ftb->setPosition(2400, -200);
+	this->tutorial_trans_ftb->setPosition(2400, -150);
 	this->tutorial_trans_ftb->setOpacity(0);
 	this->addChild(tutorial_trans_ftb);
 
@@ -462,7 +462,7 @@ void Stage1GameplayLayer::onEnter(){
 
 	/**/
 	this->zhurong = Zhurong::create("characters/zhurong/walking_left_while_facing_left_00.png");
-	zhurong->setPosition(11500, 100);
+	zhurong->setPosition(14500, 100);
 	zhurong->isBoss = true;
 	this->addChild(zhurong);
 	enemyList.pushBack(zhurong);

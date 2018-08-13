@@ -28,7 +28,7 @@ public:
 
 
 	//检测主角是否接近boss的旗子
-	const int detectBossX = 10500;
+	const int detectBossX = 13500;
 	bool heroHasTriggeredDetectBoss = false;
 
 	//检测主角是否接近第一个提示的旗子

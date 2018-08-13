@@ -1172,9 +1172,13 @@ HeroSprite::HeroSprite()
 				}
 			}
 			
-			if (this->targetToSlamDunk != nullptr){
+			if (this->targetToSlamDunk != nullptr && this->targetToSlamDunk->isWeak){
 				this->stopAllActions();
 				this->slamDunk();
+			}
+			else if (this->targetToSlamDunk != nullptr && !this->targetToSlamDunk->isWeak){
+				this->stopAllActions();
+				this->getHurtGeneral(0);//当对象不weak时，投技被拆开
 			}
 			
 		}
@@ -3366,7 +3370,10 @@ void HeroSprite::getHurtGeneral(int damage){
 	this->health -= damage;
 	this->stopAllActions();
 	if (this->facingLeft){
-		this->runAction(Sequence::create(MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 1, Vec2(this->getContentSize().width * 1, 0)), MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 5, Vec2(this->getContentSize().width /2, 0)), nullptr));
+		this->runAction(Sequence::create(
+			MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 1, Vec2(this->getContentSize().width * 1/3, 0)), 
+			MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 5, Vec2(this->getContentSize().width /3, 0)), 
+			nullptr));
 		if (this->isBird){
 			this->runAction(Animate::create(this->gettingHurtLeftGeneralAnimation_peng));
 		}
@@ -3375,7 +3382,10 @@ void HeroSprite::getHurtGeneral(int damage){
 		}
 	}
 	else{
-		this->runAction(Sequence::create(MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 1, Vec2(-this->getContentSize().width * 1, 0)), MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 5, Vec2(-this->getContentSize().width /2, 0)), nullptr));
+		this->runAction(Sequence::create(
+			MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 1, Vec2(-this->getContentSize().width * 1/3, 0)), 
+			MoveBy::create(this->TIME_FOR_ANIMATION_FRAME_INTERVAL * 5, Vec2(-this->getContentSize().width /3, 0)), 
+			nullptr));
 		if (this->isBird){
 			this->runAction(Animate::create(this->gettingHurtRightGeneralAnimation_peng));
 		}

@@ -402,7 +402,7 @@ EnemyFish::EnemyFish()
 	});
 	_eventDispatcher->addEventListenerWithFixedPriority(attackAnimationFrameEventListener, -1);
 */
-	//attack update
+//attack update
 	this->newAttackAnimation = Animation::create();
 	this->newAttackAnimation->addSpriteFrameWithFileName("characters/enemyfish/enemyfish_attack_00.png");
 	this->newAttackAnimation->addSpriteFrameWithFileName("characters/enemyfish/enemyfish_attack_01.png");
@@ -437,26 +437,36 @@ EnemyFish::EnemyFish()
 
 			this->acceptCall = false;//在动画开始的第0帧开始禁止外面调用wanderAbout()
 			Sprite * inkBall = Sprite::create("characters/enemyfish/enemyfish_inkBallAttack_00.png");
-			HeroSprite * hero = ((Stage1GameplayLayer *)this->getParent())->kunpeng;
+
 			Point fish = this->getPosition();
-			Point inkBallPos = Vec2(fish.x-50, fish.y);
+			Point inkBallPos = Vec2(fish.x - 50, fish.y);
 			inkBall->setPosition(inkBallPos);
 			ink_con = inkBall;
-			this->getParent()->addChild(inkBall);
+			if (this->getParent != nullptr) {
+				this->getParent()->addChild(inkBall);
+			}
+			else {
+				return;
+			}
 
 			auto delayTime = DelayTime::create(this->ANIMATION_FRAME_INTERVAL);
 			auto inkBallAttackFunc = CallFunc::create([this]() {
+				if (this->getParent != nullptr) {
+					Sprite * hero = ((Stage1GameplayLayer *)this->getParent())->kunpeng;
+					Point fish = this->getPosition();
+					Point biginkBall = Vec2(fish.x - 120, fish.y + 150);
 
-				Sprite * hero = ((Stage1GameplayLayer *)this->getParent())->kunpeng;
-				Point fish = this->getPosition();
-				Point biginkBall = Vec2(fish.x - 120, fish.y + 150);
+					int deltax = hero->getPositionX() - ink_con->getPositionX();
+					int deltay = hero->getPositionY() - ink_con->getPositionY();
+					double distance = sqrt(pow(deltax, 2) + pow(deltax, 2));
 
-				int deltax = hero->getPositionX() - ink_con->getPositionX();
-				int deltay = hero->getPositionY() - ink_con->getPositionY();
-				double distance = sqrt(pow(deltax, 2) + pow(deltax, 2));
-
-				ink_con->runAction(RepeatForever::create(MoveBy::create(distance / 200, Vec2(deltax, deltay))));
-				ink_con->runAction(RepeatForever::create(Animate::create(this->inkBallAttackAnimation))); });
+					ink_con->runAction(RepeatForever::create(MoveBy::create(distance / 200, Vec2(deltax, deltay))));
+					ink_con->runAction(RepeatForever::create(Animate::create(this->inkBallAttackAnimation)));
+				}
+				else {
+					return;
+				}
+			});
 			auto seq = Sequence::create(delayTime, inkBallAttackFunc, nullptr);
 			inkBall->runAction(seq);
 
@@ -488,15 +498,20 @@ EnemyFish::EnemyFish()
 		AnimationFrame::DisplayedEventInfo * userData = static_cast<AnimationFrame::DisplayedEventInfo *> (event->getUserData());
 		if (*userData->userInfo == inkBallAttackReachHeroInfo) {
 			Sprite * inkBall = (Sprite *)userData->target;
-			Sprite * hero = ((Stage1GameplayLayer *)this->getParent())->kunpeng;
-			int deltax = inkBall->getPositionX() - hero->getPositionX();
-			int deltay = inkBall->getPositionY() - hero->getPositionY();
-			
-			double distance = sqrt(pow(deltax, 2) + pow(deltay, 2));
-			if (distance < (inkBall->getContentSize().width + (hero->getContentSize().width)) * 50 / 100) {				
-				((HeroSprite*)hero)->getHurtGeneral(this->damage);
-				inkBall->stopAllActions();
-				inkBall->removeFromParent();
+			if (this->getParent != nullptr) {
+				Sprite * hero = ((Stage1GameplayLayer *)this->getParent())->kunpeng;
+				int deltax = inkBall->getPositionX() - hero->getPositionX();
+				int deltay = inkBall->getPositionY() - hero->getPositionY();
+
+				double distance = sqrt(pow(deltax, 2) + pow(deltay, 2));
+				if (distance < (inkBall->getContentSize().width + (hero->getContentSize().width)) * 50 / 100) {
+					((HeroSprite*)hero)->getHurtGeneral(this->damage);
+					inkBall->stopAllActions();
+					inkBall->removeFromParent();
+				}
+			}
+			else {
+				return;
 			}
 		}
 	});
@@ -775,8 +790,8 @@ void EnemyFish::wanderAbout()
 			QueryPerformanceFrequency(&seed);
 			QueryPerformanceCounter(&seed);
 			srand(seed.QuadPart);
-			//int attckOrNot = rand() % (ATTACK_PROB);
-			int attckOrNot = 0;
+			int attckOrNot = rand() % (ATTACK_PROB);
+			//int attckOrNot = 0;
 			//è¿›å…¥æ”»å‡»è·ç¦» æŒ‰æ¦‚çŽ‡å‘èµ·æ”»å‡?
 			if (attckOrNot == 0) {
 				this->stopAllActions();
@@ -1015,10 +1030,10 @@ void EnemyFish::getSlamDunkOnWater(int)
 void EnemyFish::getCollided(int d)
 {
 	this->getHurt(d);
-	if (((Stage1GameplayLayer *)this->getParent())->getPositionX() < this->getPositionX()){
+	if (((Stage1GameplayLayer *)this->getParent())->getPositionX() < this->getPositionX()) {
 		this->runAction(MoveBy::create(0.2f, Vec2(50, 0)));
 	}
-	else{
+	else {
 		this->runAction(MoveBy::create(0.2f, Vec2(-50, 0)));
 	}
 }

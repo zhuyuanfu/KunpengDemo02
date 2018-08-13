@@ -8,7 +8,7 @@
 
 #define FISHHEALTHY1 100
 #define ALARMDISTANCE1 300
-#define ATTACK_PROB 6
+#define ATTACK_PROB 4
 #define GUARD_POSTION_DISTANCE 500
 
 class EnemyFish : public GeneralUnit

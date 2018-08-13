@@ -55,7 +55,7 @@ void Stage1GameplayLayer::onEnter(){
 	this->addChild(tutorial_motion);
 
 	this->tutorial_jk = Sprite::create("tutorial/tutorial_jk.png");
-	this->tutorial_jk->setPosition(700, -100);
+	this->tutorial_jk->setPosition(700, -200);
 	this->addChild(tutorial_jk);
 
 	this->tutorial_trans_btf = Sprite::create("tutorial/tutorial_trans_btf.png");
@@ -64,7 +64,7 @@ void Stage1GameplayLayer::onEnter(){
 	this->addChild(tutorial_trans_btf);
 
 	this->tutorial_trans_ftb = Sprite::create("tutorial/tutorial_trans_ftb.png");
-	this->tutorial_trans_ftb->setPosition(2400, -150);
+	this->tutorial_trans_ftb->setPosition(2400, -200);
 	this->tutorial_trans_ftb->setOpacity(0);
 	this->addChild(tutorial_trans_ftb);
 
@@ -174,25 +174,26 @@ void Stage1GameplayLayer::onEnter(){
 	fishcw2->setPosition(Vec2(4900, 0));
 	this->addChild(fishcw2);
 	enemyList.pushBack(fishcw2);
-	*/
+
 
 	Rock* rock2 = Rock::create(ROCK);//½¸Ê¯ÕÏ°­
-	rock2->setPosition(2000, -100);
+	rock2->setPosition(7000, -100);
 	this->addChild(rock2);
 	enemyList.pushBack(rock2);
 
 	Storm* storm = Storm::create(STROM);//Áú¾í·çÕÏ°­
-	storm->setPosition(1000, 300);
+	storm->setPosition(10000, 300);
 	this->addChild(storm);
 	enemyList.pushBack(storm);
+	*/
 
 	Whirlpool* whirlpool = Whirlpool::create(WHIRLPOOL);//äöÎÐ
-	whirlpool->setPosition(3000, -200);
+	whirlpool->setPosition(2600, -200);
 	this->addChild(whirlpool);
 	enemyList.pushBack(whirlpool);
 
 	ThunderCloud* thunderCloud = ThunderCloud::create(THUNDERCLOUD);//À×µç
-	thunderCloud->setPosition(4000, 300);
+	thunderCloud->setPosition(1600, 300);
 	this->addChild(thunderCloud);
 	enemyList.pushBack(thunderCloud);
 
@@ -227,6 +228,11 @@ void Stage1GameplayLayer::onEnter(){
 	this->addChild(bird2);
 	enemyList.pushBack(bird2);
 
+	Storm* storm = Storm::create(STROM);//Áú¾í·çÕÏ°­
+	storm->setPosition(5800, 300);
+	this->addChild(storm);
+	enemyList.pushBack(storm);
+
 
 	GeneralUnit *fishljj = EnemyFish::create("characters/enemyfish/enemyfish_hovering_facing_left_00.png");
 	fishljj->setPosition(Vec2(6750, -200));
@@ -257,6 +263,11 @@ void Stage1GameplayLayer::onEnter(){
 	fishljj->setPosition(Vec2(6750, -100));
 	this->addChild(fishljj);
 	enemyList.pushBack(fishljj);
+
+	Rock* rock2 = Rock::create(ROCK);//½¸Ê¯ÕÏ°­
+	rock2->setPosition(7500, -100);
+	this->addChild(rock2);
+	enemyList.pushBack(rock2);
 
 
 	Bird_zwc * enemyZWC = Bird_zwc::create("characters/bat/fly-1.png");
@@ -300,7 +311,12 @@ void Stage1GameplayLayer::onEnter(){
 	this->addChild(enemyZWC);
 
 
+	storm = Storm::create(STROM);//Áú¾í·çÕÏ°­
+	storm->setPosition(10000, 300);
+	this->addChild(storm);
+	enemyList.pushBack(storm);
 
+	
 
 	GeneralUnit *fishcw = FishEnemy1::create("characters/enemyfish/enemyfish_hovering_facing_left_00.png");
 	fishcw->setPosition(Vec2(10250, -100));
@@ -333,14 +349,6 @@ void Stage1GameplayLayer::onEnter(){
 	enemyList.pushBack(fishcw);
 
 
-
-
-
-
-
-
-
-
 	fishcw = FishEnemy1::create("characters/enemyfish/enemyfish_hovering_facing_left_00.png");
 	fishcw->setPosition(Vec2(11850, -100));
 	this->addChild(fishcw);
@@ -360,6 +368,11 @@ void Stage1GameplayLayer::onEnter(){
 	fishcw->setPosition(Vec2(11750, -200));
 	this->addChild(fishcw);
 	enemyList.pushBack(fishcw);
+
+	thunderCloud = ThunderCloud::create(THUNDERCLOUD);//À×µç
+	thunderCloud->setPosition(10500, 300);
+	this->addChild(thunderCloud);
+	enemyList.pushBack(thunderCloud);
 
 	enemyZWC = Bird_zwc::create("characters/bat/fly-1.png");
 	enemyZWC->setPlace(11800, 100);
@@ -391,6 +404,11 @@ void Stage1GameplayLayer::onEnter(){
 	enemyList.pushBack(enemyZWC);
 	this->addChild(enemyZWC);
 
+	rock2 = Rock::create(ROCK);//½¸Ê¯ÕÏ°­
+	rock2->setPosition(13500, -300);
+	this->addChild(rock2);
+	enemyList.pushBack(rock2);
+
 	/**/
 	fishljj = EnemyFish::create("characters/enemyfish/enemyfish_hovering_facing_left_00.png");
 	fishljj->setPosition(Vec2(11800, -100));
@@ -411,6 +429,7 @@ void Stage1GameplayLayer::onEnter(){
 	fishljj->setPosition(Vec2(11700, -200));
 	this->addChild(fishljj);
 	enemyList.pushBack(fishljj);
+
 
 	bird2 = Bird_yyh::create("characters/Bird_yyh/left1.png");
 	bird2->setPosition(11800, 100);
@@ -462,7 +481,7 @@ void Stage1GameplayLayer::onEnter(){
 
 	/**/
 	this->zhurong = Zhurong::create("characters/zhurong/walking_left_while_facing_left_00.png");
-	zhurong->setPosition(14500, 100);
+	zhurong->setPosition(11500, 100);
 	zhurong->isBoss = true;
 	this->addChild(zhurong);
 	enemyList.pushBack(zhurong);

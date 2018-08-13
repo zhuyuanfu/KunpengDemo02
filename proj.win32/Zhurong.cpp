@@ -1231,14 +1231,14 @@ void Zhurong::heatwater(){
 
 }
 
-void Zhurong::getThrown(){
+void Zhurong::getSlamDunkOnGround(int damage){
 	
 	if (weak_flag == 1)
 	{
 		weak_flag = 0;
 		this->stopAllActions();
 		this->acceptCall = false;
-		health = health - 20;
+		health = health - damage;
 		Animation * waterflower = Animation::create();
 		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_0.png");
 		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_1.png");
@@ -1378,8 +1378,8 @@ void Zhurong::die(){
 
 }
 
-void Zhurong::getSlamDunkOnGround(int damage){
-	this->getHurtByWind(damage);
+void Zhurong::getThrown(){
+	//this->getHurtByWind(damage);
 }
 
 void Zhurong::getSlamDunkOnWater(int damage){

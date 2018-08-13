@@ -26,6 +26,8 @@ public:
 	float firerain_need;
 	Sprite* sea;
 	Sprite* fire_con;//一个指针，会不会有问题呢目前没看出来
+	Sprite* boom;
+
 	int time_flag = 0;
 	int dieflagforzhongrong = 0;
 
@@ -62,6 +64,7 @@ public:
 	Animation * closeAnimation;
 	Animation * closerightAnimation;
 	Animation * heatupAnimation;
+	Animation * heldAnimation;
 
 	//技能效果和技能道具动画
 	Animation * fireballSpinningAnimation;//火球旋转动画。注意只是旋转动画，飞行位移放在函数里。在火球旋转的每一Animation帧判断它是否与主角相撞
@@ -94,7 +97,7 @@ public:
 
 	void update(float dt);
 	void wanderAbout();
-
+	void getHeld();
 	void getThrown();
 	void getSlamDunkOnGround(int damage);
 	void getSlamDunkOnWater(int damage);

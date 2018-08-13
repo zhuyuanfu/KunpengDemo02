@@ -921,7 +921,7 @@ void Zhurong::update(float dt){
 			
 		}
 	}
-	if (this->weak - this->health >= 1000)
+	if (this->weak - this->health >= 1000 &&this->health >= 0)
 	{
 		this->weak = this->health;
 		this->stopAllActions();
@@ -941,7 +941,7 @@ void Zhurong::update(float dt){
 		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
 		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
 		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->setDelayPerUnit(0.2f);
+		waterflower->setDelayPerUnit(0.5f);
 		waterflower->setRestoreOriginalFrame(true);
 		waterflower->retain();
 		auto weak = Animate::create(waterflower);
@@ -1233,34 +1233,54 @@ void Zhurong::heatwater(){
 
 void Zhurong::getSlamDunkOnGround(int damage){
 	
-	if (weak_flag == 1)
+	if (weak_flag == 1 )
 	{
 		weak_flag = 0;
 		this->stopAllActions();
 		this->acceptCall = false;
 		health = health - damage;
-		Animation * waterflower = Animation::create();
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_0.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_1.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_2.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
-		waterflower->setDelayPerUnit(0.2f);
-		waterflower->setRestoreOriginalFrame(true);
-		waterflower->retain();
-		auto thrown = Animate::create(this->thrownAnimation);
-		auto weak = Animate::create(waterflower);
-		auto fight = Animate::create(weakfightAnimation);
-		auto seq = Sequence::create(thrown,weak, fight, nullptr);
-		this->runAction(seq);
+		if (health >= 0)
+		{
+			Animation * waterflower = Animation::create();
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_0.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_1.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_2.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->addSpriteFrameWithFileName("characters/zhurong/weak_3.png");
+			waterflower->setDelayPerUnit(0.5f);
+			waterflower->setRestoreOriginalFrame(true);
+			waterflower->retain();
+			auto thrown = Animate::create(this->thrownAnimation);
+			auto weak = Animate::create(waterflower);
+			auto fight = Animate::create(weakfightAnimation);
+			auto seq = Sequence::create(thrown, weak, fight, nullptr);
+			this->runAction(seq);
+		}
+		else{
+			auto temp = (Stage1GameplayLayer*)this->getParent();
+			auto hero = temp->kunpeng;
+			float hero_x = hero->getPosition().x;
+			float zhu_x = this->getPosition().x;
+			this->stopAllActions();
+			this->acceptCall = false;
+			dieflagforzhongrong = 1;
+			if (hero_x - zhu_x > 0)
+			{
+				this->runAction(Animate::create(this->dierightAnimation));
+			}
+			else{
+				this->runAction(Animate::create(this->dieleftAnimation));
+			}
+		}
+		
 	}
 		
 }
